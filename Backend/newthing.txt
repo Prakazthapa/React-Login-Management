@@ -1,0 +1,127 @@
+Login management backend
+
+working procedure:
+
+1. register process
+    i. save data to database i.e. register and send mail along with token inside the link
+        fields
+            fullName
+            email
+            password
+            dob
+            gender
+            role = superAdmin,admin,customer
+            isVerifiedEmail
+    ii. verify email
+        postman token
+        get token
+        verify token
+        get _id from token
+        make isVerifiedEmail true
+
+// { timestamps: true } this gives created and updated date
+2. Login
+    set email and password from postman and get it
+    check if that email exists in our db if not throw error
+    check if that email verified if not throw error
+    check if password matched, if not throw error
+    generate token ;
+        attached _id
+    send token to postman
+3. my profile
+    1st part
+    pass token from postman
+    get token from postman
+    validate token (if token is not valid throw error)
+    get _id from token
+    pass _id form another middleware
+
+    2nd part
+    find the details by using that _id
+4. my profile update
+    pass token from postman
+    pass that token through isAuthenticated
+    get _id
+    get data from body
+    delete email and password from body
+    update profile
+    send response
+5. update password
+    pass token
+    isAuthenticated 
+    _id
+    get body from postman
+        newPassword
+        oldPassword
+    check either oldPassword match with database password
+    hash newPassword
+    save to database
+    send response
+6. read all user /web-user => get
+7. read specific user /web-user/:id => get
+8. Delete user  /web-user/:id => delete
+9. update specific user  /web-user/:id => get
+10. forgot and reset password
+
+    forgot password process
+        forgot password
+            pass email from postman
+            get email
+            check if that email exist in our db (if not throw error with status code 404)
+            send email with link (frontend link with token)
+            send response
+
+        reset password
+            pass token from postman
+            pass password from postman
+            pass through isAuthenticated
+            get _id
+            hash password
+            update that _id
+            send response
+
+isAuthenticated = middleware for token verification
+
+authorization
+
+    admin => read, update user 
+    superadmin => read, update, delete user
+    customer => does not have permission to read user
+
+    steps: 
+    postman pass token
+    isAuthenticated
+    _id
+    read details of that _id
+    get role of that details
+
+    if the role is either admin or superadmin next 
+    else throw error with status code 403
+
+    
+includes
+
+    let roles = ["admin","superadmin"];
+    roles.includes("admin) //true
+    roles.includes("customer") //false
+    roles.includes("superadmin") //true
+
+
+
+note: {new:false} it gives old data of req.body 
+{new:true} it gives new data of req.body
+
+status code
+
+    success (2xx)
+        create = 201
+        read = 200
+        update = 201
+        delete = 200
+    error (4xx)
+        400
+        401 = token not valid, credential not match
+        403 =  token is valid but not authorized
+        409 = conflict (duplicate)
+        404 = api not found
+        

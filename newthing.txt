@@ -1,0 +1,87 @@
+packages 
+
+"npm create vite@latest"
+"  cd vite-project
+npm install
+npm run dev" for install and running vite
+
+npm i react-router-dom for "NavLink"
+
+<BrowserRouter> and <ToastController> on main.jsx
+npm i react-toastify
+
+npm i axios
+
+npm i cors on backend
+
+note: navigate() must be used inside button click or useEffect()
+
+process: 
+
+my profile
+    link => /admin/my-profile
+    route => /admin/my-profile => AdminProfile
+    AdminProfile
+        hit api on page load (useEffect)
+        token => get token form local storage
+
+Logout
+    link => /admin/Logout
+    route => " AdminLogout
+    AdminLogout
+        remove token from localstorage
+        redirect to "/"
+
+update profile
+    denied to update email,password and role
+    make update profile on myProfile (navigate to updateProfile while clicking)
+    route => " UpdateProfile
+    UpdateProfile 
+        make a form 
+        button => update (hit api)
+        for data populate => hit myProfile api on page load 
+
+
+update password
+    link => admin/update-password
+    route => " AdminUpdatePassword
+    AdminUpdatePassword
+        make a form for oldPassword and newPassword
+        make a update button
+        hit api
+        logout (remove token from localstorage)
+        redirect to login page
+
+forgot password
+    forgot password button on login (click "/admin/forgot-password" AdminForgotPassword)
+    crate form for email
+    api hit
+reset password
+read all user 
+read specific user 
+delete user
+update user
+
+    
+note: (private routing)
+while getting token
+    add token to useContext form localstorage
+
+    if other components needs token get token from useContext rather than localstorage (for page refresh purpose)
+while change token
+    change to localstorage
+    change to useContext
+
+
+
+things to do: 
+
+update backend so that we cannot delete our own self (done)
+gender css (done)
+sweetalert on delete (done)
+Ui components
+import and use bUrl in different api (done) if any problem arises it must be from here
+how turn off the browser auto complete fields (done)
+make a button for forgot password (done)
+
+this is updated...
